@@ -53,7 +53,7 @@ img_amor_b64 = get_image_base64("assets/amor.jpeg")
 bg_css_url = f"data:image/jpeg;base64,{img_bg_b64}" if img_bg_b64 else ""
 
 # ---------------------------------------------------------
-# Estilização CSS (Com Cores Brancas Absolutas no Questionário)
+# Estilização CSS Definitiva (Botão com Estilo Idêntico à Caixa de Pagamento)
 # ---------------------------------------------------------
 st.markdown(f"""
 <style>
@@ -112,7 +112,6 @@ st.markdown(f"""
         font-size: 0.85rem;
     }}
 
-    /* FORÇAR COR BRANCA PURA EM TODAS AS OPÇÕES DO QUESTIONÁRIO (RADIO BUTTONS) */
     div[data-baseweb="radio"] label, 
     div[data-baseweb="radio"] span, 
     .stRadio div label p,
@@ -132,20 +131,34 @@ st.markdown(f"""
         padding: 12px !important;
     }}
 
+    /* BOTÃO DE CONFIRMAÇÃO COM O MESMO ESTILO DA CAIXA DE PAGAMENTO (FUNDO ESCURO + BORDAS DOURADAS) */
     .stButton > button {{
-        background: linear-gradient(135deg, #FFE58F 0%, #D4AF37 100%) !important;
-        color: #000000 !important;
-        border: 2px solid #FFFFFF !important;
-        border-radius: 35px !important;
-        padding: 16px 32px !important;
+        background: rgba(35, 8, 18, 0.95) !important;
+        border: 2px solid #D4AF37 !important;
+        border-radius: 20px !important;
+        padding: 18px 32px !important;
         width: 100% !important;
-        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.7) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.6) !important;
+        transition: all 0.3s ease !important;
     }}
 
-    .stButton > button p, .stButton > button span, .stButton > button div, .stButton > button * {{
-        color: #000000 !important;
-        font-weight: 900 !important;
-        font-size: 1.15rem !important;
+    /* TEXTO DO BOTÃO EM DOURADO BRILHANTE E NEGRITO VISÍVEL */
+    .stButton > button p, 
+    .stButton > button span, 
+    .stButton > button div, 
+    .stButton > button * {{
+        color: #F3D06C !important;
+        font-weight: 800 !important;
+        font-size: 1.2rem !important;
+        letter-spacing: 0.5px !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.8) !important;
+    }}
+
+    .stButton > button:hover {{
+        transform: translateY(-2px);
+        border-color: #FFE58F !important;
+        background: rgba(55, 12, 28, 0.98) !important;
+        box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4) !important;
     }}
 </style>
 """, unsafe_allow_html=True)
