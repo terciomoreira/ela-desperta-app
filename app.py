@@ -34,7 +34,7 @@ def guardar_inscricao(nova_inscricao):
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(dados, f, ensure_ascii=False, indent=4)
 
-# Conversão de imagens para Base64 para garantir carregamento perfeito
+# Conversão de imagens para Base64
 
 
 def get_image_base64(path):
@@ -50,17 +50,15 @@ def get_image_base64(path):
 
 img_bg_b64 = get_image_base64("assets/background.jpeg")
 img_amor_b64 = get_image_base64("assets/amor.jpeg")
-
 bg_css_url = f"data:image/jpeg;base64,{img_bg_b64}" if img_bg_b64 else ""
 
 # ---------------------------------------------------------
-# Estilização CSS e Movimento (Cores Vivas e Contraste Absoluto)
+# Estilização CSS (Com o Botão em Preto e Negrito Destacado)
 # ---------------------------------------------------------
 st.markdown(f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
-    /* Fundo dinâmico com a imagem do evento texturizada */
     .stApp {{
         background: linear-gradient(135deg, rgba(42, 8, 21, 0.92) 0%, rgba(74, 18, 39, 0.95) 50%, rgba(31, 5, 16, 0.95) 100%),
                     url("{bg_css_url}") no-repeat center center fixed !important;
@@ -69,23 +67,15 @@ st.markdown(f"""
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }}
 
-    /* Animações fluidas de movimento */
     @keyframes fadeInSlide {{
         from {{ opacity: 0; transform: translateY(25px); }}
         to {{ opacity: 1; transform: translateY(0); }}
-    }}
-
-    @keyframes goldGlow {{
-        0% {{ box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }}
-        50% {{ box-shadow: 0 0 35px rgba(212, 175, 55, 0.7); }}
-        100% {{ box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }}
     }}
 
     .animated-block {{
         animation: fadeInSlide 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }}
 
-    /* Cartões e caixas com efeito de vidro elegante */
     .glass-card {{
         background: rgba(35, 8, 18, 0.88);
         border: 1px solid rgba(212, 175, 55, 0.5);
@@ -94,7 +84,6 @@ st.markdown(f"""
         margin-bottom: 25px;
         box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         backdrop-filter: blur(12px);
-        animation: goldGlow 5s infinite;
     }}
 
     .content-box {{
@@ -103,15 +92,8 @@ st.markdown(f"""
         border-radius: 16px;
         padding: 22px;
         margin-bottom: 20px;
-        transition: transform 0.3s ease, border-color 0.3s ease;
     }}
 
-    .content-box:hover {{
-        transform: translateY(-3px);
-        border-color: #D4AF37;
-    }}
-
-    /* Tipografia de Alta Qualidade */
     h1, h2, h3 {{
         font-family: 'Playfair Display', serif !important;
         color: #F7E7CE !important;
@@ -122,7 +104,6 @@ st.markdown(f"""
         font-size: 2.8rem !important;
         font-weight: 700 !important;
         text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        letter-spacing: 1px;
     }}
 
     .gold-subtitle {{
@@ -133,19 +114,14 @@ st.markdown(f"""
         font-size: 0.85rem;
     }}
 
-    /* CORREÇÃO TOTAL DO CONTRASTE DE TODAS AS OPÇÕES E BOTÕES DE RÁDIO */
-    .stRadio label, div[data-baseweb="radio"] div {{
+    /* Contraste das Opções */
+    .stRadio label, div[data-baseweb="radio"] div, .stRadio span {{
         color: #FFFFFF !important;
         font-size: 1.05rem !important;
         font-weight: 600 !important;
         text-shadow: 0 1px 3px rgba(0,0,0,0.9);
     }}
-    
-    .stRadio span {{
-        color: #FFFFFF !important;
-    }}
 
-    /* Inputs de Texto */
     .stTextInput input {{
         background-color: rgba(255, 255, 255, 0.95) !important;
         color: #2A0815 !important;
@@ -155,16 +131,16 @@ st.markdown(f"""
         padding: 12px !important;
     }}
 
-    /* Botão Principal Dourado com Animação ao Passar o Rato */
+    /* BOTÃO PRINCIPAL COM TEXTO EM PRETO E NEGRITO PARA MÁXIMA LEIBILIDADE */
     .stButton>button {{
-        background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%) !important;
-        color: #2A0815 !important;
-        font-weight: 800 !important;
-        font-size: 1.15rem !important;
+        background: linear-gradient(135deg, #F3D06C 0%, #D4AF37 100%) !important;
+        color: #1F0510 !important;
+        font-weight: 900 !important;
+        font-size: 1.2rem !important;
         border-radius: 30px !important;
-        padding: 15px 32px !important;
-        border: none !important;
-        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        padding: 16px 32px !important;
+        border: 2px solid #FFFFFF !important;
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
         width: 100%;
         transition: all 0.3s ease;
         margin-top: 15px;
@@ -172,8 +148,9 @@ st.markdown(f"""
 
     .stButton>button:hover {{
         transform: scale(1.02);
-        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.8);
-        background: linear-gradient(135deg, #F3D06C 0%, #D4AF37 100%) !important;
+        box-shadow: 0 12px 35px rgba(212, 175, 55, 0.9);
+        background: linear-gradient(135deg, #FFFFFF 0%, #F3D06C 100%) !important;
+        color: #000000 !important;
     }}
 </style>
 """, unsafe_allow_html=True)
@@ -186,7 +163,6 @@ menu = st.sidebar.radio(
 
 if menu == "Convite & Inscrição":
 
-    # 1. Poster Principal com Efeito Dinâmico
     if img_bg_b64:
         st.markdown(f"""
         <div style="text-align: center; margin-bottom: 25px;" class="animated-block">
@@ -194,7 +170,6 @@ if menu == "Convite & Inscrição":
         </div>
         """, unsafe_allow_html=True)
 
-    # 2. Hero Box de Apresentação
     st.markdown("""
     <div class="glass-card animated-block" style="text-align: center;">
         <p class="gold-subtitle">✦ ENCONTRO EXCLUSIVO DE TRANSFORMAÇÃO ✦</p>
@@ -205,7 +180,6 @@ if menu == "Convite & Inscrição":
     </div>
     """, unsafe_allow_html=True)
 
-    # 3. Apresentação da Palestrante
     col1, col2 = st.columns([1, 2], gap="medium")
     with col1:
         if img_amor_b64:
@@ -232,7 +206,6 @@ if menu == "Convite & Inscrição":
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # 4. Formulário Interativo com Contraste Total em Todas as Opções
     with st.form("form_inscricao", clear_on_submit=True):
         st.markdown(
             "<h2 style='color: #F3D06C !important; text-align: center;'>🌸 Formulário de Inscrição</h2>", unsafe_allow_html=True)
@@ -294,7 +267,6 @@ if menu == "Convite & Inscrição":
             label_visibility="collapsed"
         )
 
-        # Bloco de Pagamento em Destaque
         st.markdown("""
         <div class="glass-card" style="margin-top: 25px; border: 2px solid #D4AF37;">
             <h3 style="color: #F3D06C !important; margin-top:0;">💳 Confirmação da Inscrição</h3>
@@ -330,9 +302,6 @@ if menu == "Convite & Inscrição":
                 st.success(
                     "Agradecemos a sua inscrição e esperamos por si neste encontro especial! 🌸")
 
-# ---------------------------------------------------------
-# Painel da Gestora (Admin)
-# ---------------------------------------------------------
 elif menu == "Painel da Gestora (Admin)":
     st.markdown("<h2 style='color: #F3D06C !important;'>📊 Gestão de Participantes — Ela Desperta</h2>",
                 unsafe_allow_html=True)
