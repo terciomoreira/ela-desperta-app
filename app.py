@@ -9,7 +9,7 @@ from datetime import datetime
 # Configuração da Página
 # ---------------------------------------------------------
 st.set_page_config(
-    page_title="Ela Desperta | Gestão e Inscrições",
+    page_title="Ela Desperta | Encontro Especial",
     page_icon="🌸",
     layout="centered",
     initial_sidebar_state="expanded"
@@ -53,27 +53,46 @@ img_amor_b64 = get_image_base64("assets/amor.jpeg")
 bg_css_url = f"data:image/jpeg;base64,{img_bg_b64}" if img_bg_b64 else ""
 
 # ---------------------------------------------------------
-# Estilização CSS Global
+# Estilização CSS (Com Painel Lateral Personalizado e Legível)
 # ---------------------------------------------------------
 st.markdown(f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
     .stApp {{
-        background: linear-gradient(135deg, rgba(42, 8, 21, 0.94) 0%, rgba(74, 18, 39, 0.96) 50%, rgba(31, 5, 16, 0.96) 100%),
+        background: linear-gradient(135deg, rgba(42, 8, 21, 0.92) 0%, rgba(74, 18, 39, 0.95) 50%, rgba(31, 5, 16, 0.95) 100%),
                     url("{bg_css_url}") no-repeat center center fixed !important;
         background-size: cover !important;
         color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }}
 
+    /* PAINEL LATERAL COM COR DE FUNDO ELEGANTE E LETRAS NÍTIDAS */
+    [data-testid="stSidebar"] {{
+        background: linear-gradient(180deg, #2A0815 0%, #1F0510 100%) !important;
+        border-right: 2px solid #D4AF37 !important;
+    }}
+
+    [data-testid="stSidebar"] p, [data-testid="stSidebar"] span, [data-testid="stSidebar"] label {{
+        color: #F7E7CE !important;
+        font-weight: 600 !important;
+    }}
+
+    /* Estilização das opções do rádio na barra lateral */
+    .stSidebar .stRadio label {{
+        color: #FFFFFF !important;
+        font-size: 1.05rem !important;
+        font-weight: 700 !important;
+    }}
+
     .glass-card {{
-        background: rgba(35, 8, 18, 0.9);
+        background: rgba(35, 8, 18, 0.88);
         border: 1px solid rgba(212, 175, 55, 0.5);
         border-radius: 20px;
         padding: 30px;
         margin-bottom: 25px;
         box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        backdrop-filter: blur(12px);
     }}
 
     h1, h2, h3 {{
@@ -95,12 +114,6 @@ st.markdown(f"""
         font-size: 0.85rem;
     }}
 
-    .stRadio label, div[data-baseweb="radio"] div, .stRadio span {{
-        color: #FFFFFF !important;
-        font-size: 1.05rem !important;
-        font-weight: 600 !important;
-    }}
-
     .stTextInput input {{
         background-color: rgba(255, 255, 255, 0.95) !important;
         color: #2A0815 !important;
@@ -110,7 +123,6 @@ st.markdown(f"""
         padding: 12px !important;
     }}
 
-    /* Estilo de Botão Corrigido com Alta Visibilidade */
     .stButton > button {{
         background: linear-gradient(135deg, #FFE58F 0%, #D4AF37 100%) !important;
         color: #000000 !important;
@@ -130,9 +142,9 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# Navegação Principal (Menu Lateral)
+# Navegação
 # ---------------------------------------------------------
-menu = st.sidebar.radio("Menu de Navegação", [
+menu = st.sidebar.radio("📌 Menu de Navegação", [
                         "🌸 Convite & Inscrição", "📊 Painel da Gestora (Admin)"])
 
 if menu == "🌸 Convite & Inscrição":
@@ -267,9 +279,6 @@ if menu == "🌸 Convite & Inscrição":
                 st.success(
                     "Inscrição efetuada com sucesso! Esperamos por si. 🌸")
 
-# ---------------------------------------------------------
-# Painel da Gestora (Admin) - Visualização de Inscritos
-# ---------------------------------------------------------
 elif menu == "📊 Painel da Gestora (Admin)":
     st.markdown("<h1 class='gold-title'>📊 Painel de Controlo da Gestora</h1>",
                 unsafe_allow_html=True)
@@ -288,7 +297,6 @@ elif menu == "📊 Painel da Gestora (Admin)":
         else:
             df = pd.DataFrame(inscricoes)
 
-            # Métricas Principais em Destaque
             col1, col2, col3 = st.columns(3)
             col1.metric("Total de Inscritos", len(df))
             confirmadas = len(
@@ -299,12 +307,10 @@ elif menu == "📊 Painel da Gestora (Admin)":
             st.markdown("<br>", unsafe_allow_html=True)
             st.markdown("### 📋 Lista Completa de Participantes (Leads)")
 
-            # Tabela de dados interativa
             st.dataframe(df, use_container_width=True)
 
             st.markdown("<br>", unsafe_allow_html=True)
 
-            # Botão de exportação para Excel/CSV
             csv = df.to_csv(index=False).encode('utf-8-sig')
             st.download_button(
                 label="📥 Descarregar Lista de Participantes (CSV)",
@@ -314,4 +320,3 @@ elif menu == "📊 Painel da Gestora (Admin)":
             )
     elif senha != "":
         st.error("Palavra-passe incorreta. Tente novamente.")
-
