@@ -53,7 +53,7 @@ img_amor_b64 = get_image_base64("assets/amor.jpeg")
 bg_css_url = f"data:image/jpeg;base64,{img_bg_b64}" if img_bg_b64 else ""
 
 # ---------------------------------------------------------
-# Estilização CSS (Com o Botão em Preto e Negrito Destacado)
+# Estilização CSS (Com Correção Forçada para o Botão)
 # ---------------------------------------------------------
 st.markdown(f"""
 <style>
@@ -114,7 +114,6 @@ st.markdown(f"""
         font-size: 0.85rem;
     }}
 
-    /* Contraste das Opções */
     .stRadio label, div[data-baseweb="radio"] div, .stRadio span {{
         color: #FFFFFF !important;
         font-size: 1.05rem !important;
@@ -131,26 +130,33 @@ st.markdown(f"""
         padding: 12px !important;
     }}
 
-    /* BOTÃO PRINCIPAL COM TEXTO EM PRETO E NEGRITO PARA MÁXIMA LEIBILIDADE */
-    .stButton>button {{
-        background: linear-gradient(135deg, #F3D06C 0%, #D4AF37 100%) !important;
-        color: #1F0510 !important;
-        font-weight: 900 !important;
-        font-size: 1.2rem !important;
-        border-radius: 30px !important;
-        padding: 16px 32px !important;
+    /* CORREÇÃO INFALÍVEL PARA O BOTÃO PRINCIPAL (TEXTO PRETO EM NEGRITO, FUNDO DOURADO BRILHANTE) */
+    .stButton > button {{
+        background: linear-gradient(135deg, #FFE58F 0%, #D4AF37 100%) !important;
+        color: #000000 !important;
         border: 2px solid #FFFFFF !important;
-        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
-        width: 100%;
-        transition: all 0.3s ease;
-        margin-top: 15px;
+        border-radius: 35px !important;
+        padding: 16px 32px !important;
+        width: 100% !important;
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.7) !important;
+        transition: all 0.3s ease !important;
     }}
 
-    .stButton>button:hover {{
-        transform: scale(1.02);
-        box-shadow: 0 12px 35px rgba(212, 175, 55, 0.9);
-        background: linear-gradient(135deg, #FFFFFF 0%, #F3D06C 100%) !important;
+    /* Força absoluta em qualquer tag interna do botão do Streamlit */
+    .stButton > button p, 
+    .stButton > button span, 
+    .stButton > button div, 
+    .stButton > button * {{
         color: #000000 !important;
+        font-weight: 900 !important;
+        font-size: 1.15rem !important;
+        text-shadow: none !important;
+    }}
+
+    .stButton > button:hover {{
+        transform: scale(1.02);
+        background: linear-gradient(135deg, #FFFFFF 0%, #FFE58F 100%) !important;
+        box-shadow: 0 12px 35px rgba(212, 175, 55, 0.9) !important;
     }}
 </style>
 """, unsafe_allow_html=True)
