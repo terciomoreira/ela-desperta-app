@@ -9,10 +9,10 @@ from datetime import datetime
 # Configuração da Página
 # ---------------------------------------------------------
 st.set_page_config(
-    page_title="Ela Desperta | Encontro Especial",
+    page_title="Ela Desperta | Gestão e Inscrições",
     page_icon="🌸",
     layout="centered",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
 DATA_FILE = "inscricoes.json"
@@ -53,45 +53,27 @@ img_amor_b64 = get_image_base64("assets/amor.jpeg")
 bg_css_url = f"data:image/jpeg;base64,{img_bg_b64}" if img_bg_b64 else ""
 
 # ---------------------------------------------------------
-# Estilização CSS (Com Correção Forçada para o Botão)
+# Estilização CSS Global
 # ---------------------------------------------------------
 st.markdown(f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
     .stApp {{
-        background: linear-gradient(135deg, rgba(42, 8, 21, 0.92) 0%, rgba(74, 18, 39, 0.95) 50%, rgba(31, 5, 16, 0.95) 100%),
+        background: linear-gradient(135deg, rgba(42, 8, 21, 0.94) 0%, rgba(74, 18, 39, 0.96) 50%, rgba(31, 5, 16, 0.96) 100%),
                     url("{bg_css_url}") no-repeat center center fixed !important;
         background-size: cover !important;
         color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }}
 
-    @keyframes fadeInSlide {{
-        from {{ opacity: 0; transform: translateY(25px); }}
-        to {{ opacity: 1; transform: translateY(0); }}
-    }}
-
-    .animated-block {{
-        animation: fadeInSlide 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }}
-
     .glass-card {{
-        background: rgba(35, 8, 18, 0.88);
+        background: rgba(35, 8, 18, 0.9);
         border: 1px solid rgba(212, 175, 55, 0.5);
         border-radius: 20px;
         padding: 30px;
         margin-bottom: 25px;
         box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-        backdrop-filter: blur(12px);
-    }}
-
-    .content-box {{
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(212, 175, 55, 0.3);
-        border-radius: 16px;
-        padding: 22px;
-        margin-bottom: 20px;
     }}
 
     h1, h2, h3 {{
@@ -103,7 +85,6 @@ st.markdown(f"""
         color: #F3D06C !important;
         font-size: 2.8rem !important;
         font-weight: 700 !important;
-        text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     }}
 
     .gold-subtitle {{
@@ -118,7 +99,6 @@ st.markdown(f"""
         color: #FFFFFF !important;
         font-size: 1.05rem !important;
         font-weight: 600 !important;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.9);
     }}
 
     .stTextInput input {{
@@ -130,7 +110,7 @@ st.markdown(f"""
         padding: 12px !important;
     }}
 
-    /* CORREÇÃO INFALÍVEL PARA O BOTÃO PRINCIPAL (TEXTO PRETO EM NEGRITO, FUNDO DOURADO BRILHANTE) */
+    /* Estilo de Botão Corrigido com Alta Visibilidade */
     .stButton > button {{
         background: linear-gradient(135deg, #FFE58F 0%, #D4AF37 100%) !important;
         color: #000000 !important;
@@ -139,45 +119,33 @@ st.markdown(f"""
         padding: 16px 32px !important;
         width: 100% !important;
         box-shadow: 0 8px 25px rgba(212, 175, 55, 0.7) !important;
-        transition: all 0.3s ease !important;
     }}
 
-    /* Força absoluta em qualquer tag interna do botão do Streamlit */
-    .stButton > button p, 
-    .stButton > button span, 
-    .stButton > button div, 
-    .stButton > button * {{
+    .stButton > button p, .stButton > button span, .stButton > button div, .stButton > button * {{
         color: #000000 !important;
         font-weight: 900 !important;
         font-size: 1.15rem !important;
-        text-shadow: none !important;
-    }}
-
-    .stButton > button:hover {{
-        transform: scale(1.02);
-        background: linear-gradient(135deg, #FFFFFF 0%, #FFE58F 100%) !important;
-        box-shadow: 0 12px 35px rgba(212, 175, 55, 0.9) !important;
     }}
 </style>
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# Navegação
+# Navegação Principal (Menu Lateral)
 # ---------------------------------------------------------
-menu = st.sidebar.radio(
-    "Navegação", ["Convite & Inscrição", "Painel da Gestora (Admin)"])
+menu = st.sidebar.radio("Menu de Navegação", [
+                        "🌸 Convite & Inscrição", "📊 Painel da Gestora (Admin)"])
 
-if menu == "Convite & Inscrição":
+if menu == "🌸 Convite & Inscrição":
 
     if img_bg_b64:
         st.markdown(f"""
-        <div style="text-align: center; margin-bottom: 25px;" class="animated-block">
+        <div style="text-align: center; margin-bottom: 25px;">
             <img src="data:image/jpeg;base64,{img_bg_b64}" style="max-width: 100%; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.7); border: 2px solid rgba(212,175,55,0.4);">
         </div>
         """, unsafe_allow_html=True)
 
     st.markdown("""
-    <div class="glass-card animated-block" style="text-align: center;">
+    <div class="glass-card" style="text-align: center;">
         <p class="gold-subtitle">✦ ENCONTRO EXCLUSIVO DE TRANSFORMAÇÃO ✦</p>
         <h1 class="gold-title">ELA DESPERTA</h1>
         <p style="font-size: 1.15rem; color: #FAF6F8 !important; margin-top: 12px; line-height: 1.6;">
@@ -190,7 +158,7 @@ if menu == "Convite & Inscrição":
     with col1:
         if img_amor_b64:
             st.markdown(f"""
-            <div style="text-align: center;" class="animated-block">
+            <div style="text-align: center;">
                 <img src="data:image/jpeg;base64,{img_amor_b64}" style="width: 100%; border-radius: 16px; border: 2px solid #D4AF37; box-shadow: 0 10px 25px rgba(0,0,0,0.6);">
                 <p style="color: #F3D06C !important; font-weight: bold; margin-top: 10px; font-size: 1.1rem;">Emily Gisto Araujo</p>
             </div>
@@ -198,14 +166,11 @@ if menu == "Convite & Inscrição":
 
     with col2:
         st.markdown("""
-        <div class="content-box animated-block">
+        <div class="glass-card">
             <h3 style="color: #F3D06C !important; margin-top:0;">Uma Mensagem Especial para Si</h3>
             <p style="line-height: 1.7; color: #FFFFFF !important; font-size: 1.02rem;">
                 Muitas vezes, passamos a vida a cuidar de tudo e de todos, esquecendo-nos da nossa própria essência. 
                 Este encontro foi desenhado ao detalhe para a ajudar a pausar, refletir e dar o próximo passo na sua jornada com propósito e leveza.
-            </p>
-            <p style="color: #F3D06C !important; font-weight: 700; margin-top: 10px;">
-                Garanta a sua presença preenchendo o formulário abaixo.
             </p>
         </div>
         """, unsafe_allow_html=True)
@@ -214,26 +179,27 @@ if menu == "Convite & Inscrição":
 
     with st.form("form_inscricao", clear_on_submit=True):
         st.markdown(
-            "<h2 style='color: #F3D06C !important; text-align: center;'>🌸 Formulário de Inscrição</h2>", unsafe_allow_html=True)
+            "<h2 style='color: #F3D06C !important; text-align: center;'>Formulário de Inscrição</h2>", unsafe_allow_html=True)
         st.markdown("<hr style='border-color: rgba(212,175,55,0.3);'>",
                     unsafe_allow_html=True)
 
-        st.markdown("<p style='color: #F7E7CE; font-weight: 700; font-size: 1.05rem;'>1. Qual é o seu nome completo? <span style='font-weight: 400; font-size: 0.9rem; color: #E8C5C8;'>(Para confirmar a sua inscrição)</span></p>", unsafe_allow_html=True)
-        nome = st.text_input(
-            "Nome completo", label_visibility="collapsed", placeholder="O seu nome completo...")
+        st.markdown(
+            "<p style='color: #F7E7CE; font-weight: 700;'>1. Qual é o seu nome completo?</p>", unsafe_allow_html=True)
+        nome = st.text_input("Nome", label_visibility="collapsed",
+                             placeholder="O seu nome completo...")
 
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #F7E7CE; font-weight: 700; font-size: 1.05rem;'>Qual é o seu e-mail de contacto? <span style='font-weight: 400; font-size: 0.9rem; color: #E8C5C8;'>(Para conteúdos exclusivos)</span></p>", unsafe_allow_html=True)
+        st.markdown(
+            "<p style='color: #F7E7CE; font-weight: 700;'>Qual é o seu e-mail de contacto?</p>", unsafe_allow_html=True)
         email = st.text_input(
-            "E-mail", label_visibility="collapsed", placeholder="exemplo@email.com")
+            "Email", label_visibility="collapsed", placeholder="exemplo@email.com")
 
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #F7E7CE; font-weight: 700; font-size: 1.05rem;'>2. Qual é o seu contacto de WhatsApp? <span style='font-weight: 400; font-size: 0.9rem; color: #E8C5C8;'>(Para receber as informações do evento)</span></p>", unsafe_allow_html=True)
+        st.markdown(
+            "<p style='color: #F7E7CE; font-weight: 700;'>2. Qual é o seu contacto de WhatsApp?</p>", unsafe_allow_html=True)
         whatsapp = st.text_input(
             "WhatsApp", label_visibility="collapsed", placeholder="+351 900 000 000")
 
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #F7E7CE; font-weight: 700; font-size: 1.05rem;'>3. O que a motivou a querer participar no Ela Desperta?</p>", unsafe_allow_html=True)
+        st.markdown(
+            "<p style='color: #F7E7CE; font-weight: 700;'>3. O que a motivou a querer participar no Ela Desperta?</p>", unsafe_allow_html=True)
         motivacao = st.radio(
             "Motivação",
             [
@@ -247,10 +213,10 @@ if menu == "Convite & Inscrição":
             label_visibility="collapsed"
         )
 
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #F7E7CE; font-weight: 700; font-size: 1.05rem;'>4. Em que área da sua vida sente que precisa de despertar?</p>", unsafe_allow_html=True)
+        st.markdown(
+            "<p style='color: #F7E7CE; font-weight: 700;'>4. Em que área da sua vida sente que precisa de despertar?</p>", unsafe_allow_html=True)
         area_despertar = st.radio(
-            "Área a Despertar",
+            "Área",
             [
                 "Amor-próprio e identidade",
                 "Relações familiares e afetivas",
@@ -262,8 +228,7 @@ if menu == "Convite & Inscrição":
             label_visibility="collapsed"
         )
 
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("<p style='color: #F7E7CE; font-weight: 700; font-size: 1.05rem;'>5. Confirma a sua participação e compreende o valor de inscrição?</p>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #F7E7CE; font-weight: 700;'>5. Confirma a sua participação e compreende o valor de inscrição?</p>", unsafe_allow_html=True)
         confirmacao = st.radio(
             "Confirmação",
             [
@@ -275,14 +240,9 @@ if menu == "Convite & Inscrição":
 
         st.markdown("""
         <div class="glass-card" style="margin-top: 25px; border: 2px solid #D4AF37;">
-            <h3 style="color: #F3D06C !important; margin-top:0;">💳 Confirmação da Inscrição</h3>
-            <p style="font-size: 1.05rem; line-height: 1.6;">O valor de participação é de <b style="color: #F3D06C;">17 €</b>, destinado ao <i>coffee break</i> do hotel.</p>
-            <p style="line-height: 1.6;">O pagamento deverá ser efetuado até ao dia <b>12 de novembro</b>, através de:</p>
-            <ul style="line-height: 1.8;">
-                <li>Dinheiro (em espécie); ou</li>
-                <li>Por IBAN: <b style="color: #F3D06C; font-size: 1.1rem;">PT50581000019000006564779</b><br>(Titular: <i>Emily Gisto Araujo</i>)</li>
-            </ul>
-            <p style="font-size: 0.9rem; color: #F3D06C !important; margin-top: 12px;">* A inscrição ficará confirmada após a validação do pagamento.</p>
+            <h3 style="color: #F3D06C !important; margin-top:0;">💳 Informações de Pagamento</h3>
+            <p>Valor: <b style="color: #F3D06C;">17 €</b> (destinado ao <i>coffee break</i> do hotel).</p>
+            <p>IBAN: <b style="color: #F3D06C;">PT50581000019000006564779</b> (Titular: <i>Emily Gisto Araujo</i>)</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -291,8 +251,7 @@ if menu == "Convite & Inscrição":
 
         if submitted:
             if not nome or not whatsapp or not email:
-                st.error(
-                    "Por favor, preencha o seu Nome, E-mail e WhatsApp para validar a inscrição.")
+                st.error("Por favor, preencha o seu Nome, E-mail e WhatsApp.")
             else:
                 nova_entry = {
                     "data_inscricao": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -306,40 +265,53 @@ if menu == "Convite & Inscrição":
                 guardar_inscricao(nova_entry)
                 st.balloons()
                 st.success(
-                    "Agradecemos a sua inscrição e esperamos por si neste encontro especial! 🌸")
+                    "Inscrição efetuada com sucesso! Esperamos por si. 🌸")
 
-elif menu == "Painel da Gestora (Admin)":
-    st.markdown("<h2 style='color: #F3D06C !important;'>📊 Gestão de Participantes — Ela Desperta</h2>",
+# ---------------------------------------------------------
+# Painel da Gestora (Admin) - Visualização de Inscritos
+# ---------------------------------------------------------
+elif menu == "📊 Painel da Gestora (Admin)":
+    st.markdown("<h1 class='gold-title'>📊 Painel de Controlo da Gestora</h1>",
                 unsafe_allow_html=True)
+    st.markdown("<p style='color: #E8C5C8;'>Acompanhe em tempo real as inscrições, contactos de WhatsApp/E-mail e métricas do evento.</p>", unsafe_allow_html=True)
+    st.divider()
 
-    senha = st.text_input("Palavra-passe de acesso restrito:", type="password")
+    senha = st.text_input(
+        "Introduza a palavra-passe de acesso:", type="password")
 
     if senha == "crearis2026":
         st.success("Acesso autorizado com sucesso!")
         inscricoes = carregar_inscricoes()
 
         if len(inscricoes) == 0:
-            st.info("Ainda não existem inscrições registadas.")
+            st.info("Ainda não existem participantes inscritos.")
         else:
             df = pd.DataFrame(inscricoes)
 
+            # Métricas Principais em Destaque
             col1, col2, col3 = st.columns(3)
-            col1.metric("Total de Inscrições", len(df))
+            col1.metric("Total de Inscritos", len(df))
             confirmadas = len(
                 df[df['status_confirmacao'].str.contains("Sim", na=False)])
-            col2.metric("Confirmadas", confirmadas)
-            col3.metric("Valor Arrecadado (Coffee)", f"{confirmadas * 17} €")
+            col2.metric("Inscrições Confirmadas", confirmadas)
+            col3.metric("Valor Arrecadado", f"{confirmadas * 17} €")
 
-            st.divider()
-            st.markdown("### 📋 Lista Completa de Participantes")
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown("### 📋 Lista Completa de Participantes (Leads)")
+
+            # Tabela de dados interativa
             st.dataframe(df, use_container_width=True)
 
+            st.markdown("<br>", unsafe_allow_html=True)
+
+            # Botão de exportação para Excel/CSV
             csv = df.to_csv(index=False).encode('utf-8-sig')
             st.download_button(
-                label="📥 Descarregar Lista de Inscrições (CSV)",
+                label="📥 Descarregar Lista de Participantes (CSV)",
                 data=csv,
                 file_name="participantes_ela_desperta.csv",
                 mime="text/csv",
             )
     elif senha != "":
-        st.error("Palavra-passe incorreta.")
+        st.error("Palavra-passe incorreta. Tente novamente.")
+
