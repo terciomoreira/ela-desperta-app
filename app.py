@@ -53,21 +53,20 @@ img_amor_b64 = get_image_base64("assets/amor.jpeg")
 bg_css_url = f"data:image/jpeg;base64,{img_bg_b64}" if img_bg_b64 else ""
 
 # ---------------------------------------------------------
-# Estilização CSS (Com Painel Lateral Personalizado e Legível)
+# Estilização CSS (Com Cores Brancas Absolutas no Questionário)
 # ---------------------------------------------------------
 st.markdown(f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
     .stApp {{
-        background: linear-gradient(135deg, rgba(42, 8, 21, 0.92) 0%, rgba(74, 18, 39, 0.95) 50%, rgba(31, 5, 16, 0.95) 100%),
+        background: linear-gradient(135deg, rgba(42, 8, 21, 0.94) 0%, rgba(74, 18, 39, 0.96) 50%, rgba(31, 5, 16, 0.96) 100%),
                     url("{bg_css_url}") no-repeat center center fixed !important;
         background-size: cover !important;
         color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }}
 
-    /* PAINEL LATERAL COM COR DE FUNDO ELEGANTE E LETRAS NÍTIDAS */
     [data-testid="stSidebar"] {{
         background: linear-gradient(180deg, #2A0815 0%, #1F0510 100%) !important;
         border-right: 2px solid #D4AF37 !important;
@@ -78,7 +77,6 @@ st.markdown(f"""
         font-weight: 600 !important;
     }}
 
-    /* Estilização das opções do rádio na barra lateral */
     .stSidebar .stRadio label {{
         color: #FFFFFF !important;
         font-size: 1.05rem !important;
@@ -112,6 +110,17 @@ st.markdown(f"""
         font-weight: 700;
         text-transform: uppercase;
         font-size: 0.85rem;
+    }}
+
+    /* FORÇAR COR BRANCA PURA EM TODAS AS OPÇÕES DO QUESTIONÁRIO (RADIO BUTTONS) */
+    div[data-baseweb="radio"] label, 
+    div[data-baseweb="radio"] span, 
+    .stRadio div label p,
+    .stRadio div label span {{
+        color: #FFFFFF !important;
+        font-size: 1.02rem !important;
+        font-weight: 600 !important;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.9);
     }}
 
     .stTextInput input {{
