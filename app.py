@@ -53,7 +53,7 @@ img_amor_b64 = get_image_base64("assets/amor.jpeg")
 bg_css_url = f"data:image/jpeg;base64,{img_bg_b64}" if img_bg_b64 else ""
 
 # ---------------------------------------------------------
-# Estilização CSS Definitiva (Botão com Estilo Idêntico à Caixa de Pagamento)
+# Estilização CSS Definitiva
 # ---------------------------------------------------------
 st.markdown(f"""
 <style>
@@ -131,7 +131,6 @@ st.markdown(f"""
         padding: 12px !important;
     }}
 
-    /* BOTÃO DE CONFIRMAÇÃO COM O MESMO ESTILO DA CAIXA DE PAGAMENTO (FUNDO ESCURO + BORDAS DOURADAS) */
     .stButton > button {{
         background: rgba(35, 8, 18, 0.95) !important;
         border: 2px solid #D4AF37 !important;
@@ -142,7 +141,6 @@ st.markdown(f"""
         transition: all 0.3s ease !important;
     }}
 
-    /* TEXTO DO BOTÃO EM DOURADO BRILHANTE E NEGRITO VISÍVEL */
     .stButton > button p, 
     .stButton > button span, 
     .stButton > button div, 
@@ -208,6 +206,18 @@ if menu == "🌸 Convite & Inscrição":
             </p>
         </div>
         """, unsafe_allow_html=True)
+
+    # SECÇÃO COM O ENDEREÇO OFICIAL DO EVENTO
+    st.markdown("""
+    <div class="glass-card" style="border: 2px solid #D4AF37; text-align: center; margin-top: 20px;">
+        <h3 style="color: #F3D06C !important; margin-top:0;">📍 Local do Encontro</h3>
+        <p style="font-size: 1.1rem; line-height: 1.6; color: #FFFFFF !important;">
+            <b>THE ONE Grand Hotel da Póvoa</b><br>
+            Largo do Passeio Alegre, nº 20, 4490-428 Póvoa de Varzim<br>
+            <span style="font-size: 0.95rem; color: #E8C5C8;">(Um espaço requintado e acolhedor à altura do nosso encontro)</span>
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
