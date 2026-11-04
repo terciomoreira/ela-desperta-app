@@ -17,6 +17,7 @@ st.set_page_config(
 
 DATA_FILE = "inscricoes.json"
 
+
 def carregar_inscricoes():
     if os.path.exists(DATA_FILE):
         try:
@@ -26,6 +27,7 @@ def carregar_inscricoes():
             return []
     return []
 
+
 def guardar_inscricao(nova_inscricao):
     dados = carregar_inscricoes()
     dados.append(nova_inscricao)
@@ -33,6 +35,8 @@ def guardar_inscricao(nova_inscricao):
         json.dump(dados, f, ensure_ascii=False, indent=4)
 
 # Conversão de imagens para Base64
+
+
 def get_image_base64(path):
     if os.path.exists(path):
         with open(path, "rb") as image_file:
@@ -42,6 +46,7 @@ def get_image_base64(path):
         with open(alt_path, "rb") as image_file:
             return base64.b64encode(image_file.read()).decode()
     return None
+
 
 img_bg_b64 = get_image_base64("assets/background.jpeg")
 img_amor_b64 = get_image_base64("assets/amor.jpeg")
@@ -118,5 +123,234 @@ st.markdown(f"""
     }}
 
     .stTextInput input {{
-        background-color: rgba(255, 255, 255, 0
-        
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        color: #2A0815 !important;
+        font-weight: 600 !important;
+        border-radius: 12px !important;
+        border: 2px solid #D4AF37 !important;
+        padding: 12px !important;
+    }}
+
+    .stButton > button {{
+        background: rgba(35, 8, 18, 0.95) !important;
+        border: 2px solid #D4AF37 !important;
+        border-radius: 20px !important;
+        padding: 18px 32px !important;
+        width: 100% !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.6) !important;
+        transition: all 0.3s ease !important;
+    }}
+
+    .stButton > button p, 
+    .stButton > button span, 
+    .stButton > button div, 
+    .stButton > button * {{
+        color: #F3D06C !important;
+        font-weight: 800 !important;
+        font-size: 1.2rem !important;
+        letter-spacing: 0.5px !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.8) !important;
+    }}
+
+    .stButton > button:hover {{
+        transform: translateY(-2px);
+        border-color: #FFE58F !important;
+        background: rgba(55, 12, 28, 0.98) !important;
+        box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4) !important;
+    }}
+</style>
+""", unsafe_allow_html=True)
+
+# ---------------------------------------------------------
+# Navegação
+# ---------------------------------------------------------
+menu = st.sidebar.radio("📌 Menu de Navegação", [
+                        "🌸 Convite & Inscrição", "📊 Painel da Gestora (Admin)"])
+
+if menu == "🌸 Convite & Inscrição":
+
+    if img_bg_b64:
+        st.markdown(
+            f'<div style="text-align: center; margin-bottom: 25px;">'
+            f'<img src="data:image/jpeg;base64,{img_bg_b64}" style="max-width: 100%; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.7); border: 2px solid rgba(212,175,55,0.4);">'
+            f'</div>',
+            unsafe_allow_html=True
+        )
+
+    st.markdown("""
+    <div class="glass-card" style="text-align: center;">
+        <p class="gold-subtitle">✦ ENCONTRO EXCLUSIVO DE TRANSFORMAÇÃO ✦</p>
+        <h1 class="gold-title">ELA DESPERTA</h1>
+        <p style="font-size: 1.15rem; color: #FAF6F8 !important; margin-top: 12px; line-height: 1.6;">
+            Um espaço seguro para resgatar a sua identidade, fortalecer a sua autoestima e despertar a mulher extraordinária que há em si.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    col1, col2 = st.columns([1, 2], gap="medium")
+    with col1:
+        if img_amor_b64:
+            st.markdown(
+                f'<div style="text-align: center;">'
+                f'<img src="data:image/jpeg;base64,{img_amor_b64}" style="width: 100%; border-radius: 16px; border: 2px solid #D4AF37; box-shadow: 0 10px 25px rgba(0,0,0,0.6);">'
+                f'<p style="color: #F3D06C !important; font-weight: bold; margin-top: 10px; font-size: 1.1rem;">Emily Gisto Araujo</p>'
+                f'</div>',
+                unsafe_allow_html=True
+            )
+
+    with col2:
+        st.markdown("""
+        <div class="glass-card">
+            <h3 style="color: #F3D06C !important; margin-top:0;">Uma Mensagem Especial para Si</h3>
+            <p style="line-height: 1.7; color: #FFFFFF !important; font-size: 1.02rem;">
+                Muitas vezes, passamos a vida a cuidar de tudo e de todos, esquecendo-nos da nossa própria essência. 
+                Este encontro foi desenhado ao detalhe para a ajudar a pausar, refletir e dar o próximo passo na sua jornada com propósito e leveza.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # SECÇÃO DA MORADA ATUALIZADA
+    st.markdown("""
+    <div class="glass-card" style="border: 2px solid #D4AF37; text-align: center; margin-top: 20px;">
+        <h3 style="color: #F3D06C !important; margin-top:0;">📍 Local do Encontro</h3>
+        <p style="font-size: 1.1rem; line-height: 1.6; color: #FFFFFF !important;">
+            <b>Antigo Café Água na Boca</b><br>
+            Vasco da Gama, 132 R/C<br>
+            <span style="font-size: 0.95rem; color: #E8C5C8;">(Um espaço acolhedor e preparado especialmente para o nosso encontro)</span>
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    with st.form("form_inscricao", clear_on_submit=True):
+        st.markdown(
+            "<h2 style='color: #F3D06C !important; text-align: center;'>Formulário de Inscrição</h2>", unsafe_allow_html=True)
+        st.markdown("<hr style='border-color: rgba(212,175,55,0.3);'>",
+                    unsafe_allow_html=True)
+
+        st.markdown(
+            "<p style='color: #F7E7CE; font-weight: 700;'>1. Qual é o seu nome completo?</p>", unsafe_allow_html=True)
+        nome = st.text_input("Nome", label_visibility="collapsed",
+                             placeholder="O seu nome completo...")
+
+        st.markdown(
+            "<p style='color: #F7E7CE; font-weight: 700;'>Qual é o seu e-mail de contacto?</p>", unsafe_allow_html=True)
+        email = st.text_input(
+            "Email", label_visibility="collapsed", placeholder="exemplo@email.com")
+
+        st.markdown(
+            "<p style='color: #F7E7CE; font-weight: 700;'>2. Qual é o seu contacto de WhatsApp?</p>", unsafe_allow_html=True)
+        whatsapp = st.text_input(
+            "WhatsApp", label_visibility="collapsed", placeholder="+351 900 000 000")
+
+        st.markdown(
+            "<p style='color: #F7E7CE; font-weight: 700;'>3. O que a motivou a querer participar no Ela Desperta?</p>", unsafe_allow_html=True)
+        motivacao = st.radio(
+            "Motivação",
+            [
+                "Quero conhecer-me melhor",
+                "Quero fortalecer a minha identidade e autoestima",
+                "Quero compreender padrões que se repetem na minha vida",
+                "Quero aproximar-me mais de Deus",
+                "Senti que este encontro é para mim",
+                "Outro motivo"
+            ],
+            label_visibility="collapsed"
+        )
+
+        st.markdown(
+            "<p style='color: #F7E7CE; font-weight: 700;'>4. Em que área da sua vida sente que precisa de despertar?</p>", unsafe_allow_html=True)
+        area_despertar = st.radio(
+            "Área",
+            [
+                "Amor-próprio e identidade",
+                "Relações familiares e afetivas",
+                "Medos e inseguranças",
+                "Propósito e direção de vida",
+                "Crenças e padrões que me limitam",
+                "Um pouco de tudo"
+            ],
+            label_visibility="collapsed"
+        )
+
+        st.markdown("<p style='color: #F7E7CE; font-weight: 700;'>5. Confirma a sua participação e compreende o valor de inscrição?</p>", unsafe_allow_html=True)
+        confirmacao = st.radio(
+            "Confirmação",
+            [
+                "Sim, confirmo a minha participação e aceito o valor de 17 €",
+                "Ainda preciso de esclarecer algumas dúvidas"
+            ],
+            label_visibility="collapsed"
+        )
+
+        st.markdown("""
+        <div class="glass-card" style="margin-top: 25px; border: 2px solid #D4AF37;">
+            <h3 style="color: #F3D06C !important; margin-top:0;">💳 Informações de Pagamento</h3>
+            <p>Valor: <b style="color: #F3D06C;">17 €</b> (destinado ao <i>coffee break</i> do hotel).</p>
+            <p>IBAN: <b style="color: #F3D06C;">PT50581000019000006564779</b> (Titular: <i>Emily Gisto Araujo</i>)</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        submitted = st.form_submit_button(
+            "✨ Confirmar a minha Inscrição com Propósito")
+
+        if submitted:
+            if not nome or not whatsapp or not email:
+                st.error("Por favor, preencha o seu Nome, E-mail e WhatsApp.")
+            else:
+                nova_entry = {
+                    "data_inscricao": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "nome": nome,
+                    "email": email,
+                    "whatsapp": whatsapp,
+                    "motivacao": motivacao,
+                    "area_despertar": area_despertar,
+                    "status_confirmacao": confirmacao
+                }
+                guardar_inscricao(nova_entry)
+                st.balloons()
+                st.success(
+                    "Inscrição efetuada com sucesso! Esperamos por si. 🌸")
+
+elif menu == "📊 Painel da Gestora (Admin)":
+    st.markdown("<h1 class='gold-title'>📊 Painel de Controlo da Gestora</h1>",
+                unsafe_allow_html=True)
+    st.markdown("<p style='color: #E8C5C8;'>Acompanhe em tempo real as inscrições, contactos de WhatsApp/E-mail e métricas do evento.</p>", unsafe_allow_html=True)
+    st.divider()
+
+    senha = st.text_input(
+        "Introduza a palavra-passe de acesso:", type="password")
+
+    if senha == "crearis2026":
+        st.success("Acesso autorizado com sucesso!")
+        inscricoes = carregar_inscricoes()
+
+        if len(inscricoes) == 0:
+            st.info("Ainda não existem participantes inscritos.")
+        else:
+            df = pd.DataFrame(inscricoes)
+
+            col1, col2, col3 = st.columns(3)
+            col1.metric("Total de Inscritos", len(df))
+            confirmadas = len(
+                df[df['status_confirmacao'].str.contains("Sim", na=False)])
+            col2.metric("Inscrições Confirmadas", confirmadas)
+            col3.metric("Valor Arrecadado", f"{confirmadas * 17} €")
+
+            st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown("### 📋 Lista Completa de Participantes (Leads)")
+
+            st.dataframe(df, use_container_width=True)
+
+            st.markdown("<br>", unsafe_allow_html=True)
+
+            csv = df.to_csv(index=False).encode('utf-8-sig')
+            st.download_button(
+                label="📥 Descarregar Lista de Participantes (CSV)",
+                data=csv,
+                file_name="participantes_ela_desperta.csv",
+                mime="text/csv",
+            )
+    elif senha != "":
+        st.error("Palavra-passe incorreta. Tente novamente.")
